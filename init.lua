@@ -698,6 +698,7 @@ require('lazy').setup({
             },
           },
         },
+        omnisharp = {},
       }
 
       -- Ensure the servers and tools above are installed
