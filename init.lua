@@ -1013,5 +1013,6 @@ require('lazy').setup({
   },
 })
 
+vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { desc = '󰙅 Neo-tree', noremap = true, silent = true })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
