@@ -699,6 +699,10 @@ require('lazy').setup({
           },
         },
         omnisharp = {},
+        intelephense = {},
+        html = {},
+        cssls = {},
+        ts_ls = {},
       }
 
       -- Ensure the servers and tools above are installed

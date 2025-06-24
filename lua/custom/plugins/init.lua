@@ -16,4 +16,9 @@ return {
     -- Generating of documentation is mappped to <leader>d
     vim.keymap.set('n', '<leader>d', '<Plug>(doge-generate)', { desc = 'Generate [D]ocumentation' }),
   },
+  {
+    'windwp/nvim-ts-autotag',
+    opts = {},
+    event = 'VeryLazy',
+  },
 }
