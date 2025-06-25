@@ -17,8 +17,19 @@ return {
     vim.keymap.set('n', '<leader>d', '<Plug>(doge-generate)', { desc = 'Generate [D]ocumentation' }),
   },
   {
+    -- This plugin is for autoclosing tags
     'windwp/nvim-ts-autotag',
     opts = {},
     event = 'VeryLazy',
+  },
+  {
+    -- Lazygit plugin for git integration
+    'kdheepak/lazygit.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+
+    -- Opening of lazygit is mapped to '<leader>lg'
+    keys = {
+      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+    },
   },
 }
