@@ -703,6 +703,7 @@ require('lazy').setup({
         html = {},
         cssls = {},
         ts_ls = {},
+        yamlls = {},
       }
 
       -- Ensure the servers and tools above are installed
