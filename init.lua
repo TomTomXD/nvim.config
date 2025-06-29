@@ -698,7 +698,7 @@ require('lazy').setup({
             },
           },
         },
-        omnisharp = {},
+        roslyn = {},
         intelephense = {},
         html = {},
         cssls = {},
@@ -1017,6 +1017,14 @@ require('lazy').setup({
     },
   },
 })
+
+-- Add custom registeries for Mason to enable Roslyn LSP support
+require('mason').setup {
+  registries = {
+    'github:mason-org/mason-registry',
+    'github:Crashdummyy/mason-registry',
+  },
+}
 
 -- Indentation settings
 vim.opt.tabstop = 4
