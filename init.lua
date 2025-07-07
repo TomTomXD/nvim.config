@@ -311,7 +311,7 @@ require('lazy').setup({
         -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
         -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
         keys = vim.g.have_nerd_font and {} or {
-          Up = '<Up> ',
+          Up = '<Up>',
           Down = '<Down> ',
           Left = '<Left> ',
           Right = '<Right> ',
@@ -700,7 +700,6 @@ require('lazy').setup({
         },
         omnisharp = {},
         intelephense = {},
-        html = {},
         cssls = {},
         ts_ls = {},
         yamlls = {},
@@ -851,35 +850,106 @@ require('lazy').setup({
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- Adjusts spacing to ensure icons are aligned
         nerd_font_variant = 'normal',
+        kind_icons = {
+          Text = '󰉿',
+          Method = '󰆧',
+          Function = '󰊕',
+          Constructor = '󰛡',
+          Field = '󰜢',
+          Variable = '󰀫',
+          Class = '󰠱',
+          Interface = '󰜰',
+          Module = '󰏗',
+          Property = '󰜢',
+          Unit = '󰑭',
+          Value = '󰎠',
+          Enum = '󰕘',
+          Keyword = '󰌋',
+          Snippet = '󰈸',
+          Color = '󰏘',
+          File = '󰈔',
+          Reference = '󰈇',
+          Folder = '󰉋',
+          EnumMember = '󰕘',
+          Constant = '󰏿',
+          Struct = '󰙅',
+          Event = '󰉁',
+          Operator = '󰆕',
+          TypeParameter = '󰊄',
+        },
       },
 
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = true, auto_show_delay_ms = 100 },
-      },
-
-      sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
-        providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+        accept = { auto_brackets = { enabled = true } },
+        menu = {
+          enabled = true,
+          draw = {
+            border = 'rounded',
+            gap = 1,
+            padding = 1,
+            treesitter = { 'lsp' },
+            columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'kind' } },
+          },
+        },
+        documentation = {
+          auto_show = true,
+          treesitter_highlighting = true,
+          window = {
+            border = 'rounded',
+            scrollbar = true,
+          },
+        },
+        ghost_text = {
+          enabled = true,
         },
       },
 
-      snippets = { preset = 'luasnip' },
-
-      -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
-      -- which automatically downloads a prebuilt binary when enabled.
-      --
-      -- By default, we use the Lua implementation instead, but you may enable
-      -- the rust implementation via `'prefer_rust_with_warning'`
-      --
-      -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
-
-      -- Shows a signature help window while you type arguments for a function
-      signature = { enabled = true },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+        providers = {
+          lsp = {
+            name = 'LSP',
+            module = 'blink.cmp.sources.lsp',
+            score_offset = 90,
+          },
+          path = {
+            name = 'Path',
+            module = 'blink.cmp.sources.path',
+            score_offset = 3,
+          },
+          snippets = {
+            name = 'Snippets',
+            module = 'blink.cmp.sources.snippets',
+            score_offset = 80,
+          },
+          buffer = {
+            name = 'Buffer',
+            module = 'blink.cmp.sources.buffer',
+            max_items = 5,
+            min_keyword_length = 3,
+            score_offset = 5,
+          },
+          lazydev = {
+            name = 'LazyDev',
+            module = 'lazydev.integrations.blink',
+            score_offset = 100,
+          },
+        },
+      },
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
+      signature = {
+        enabled = true,
+        window = {
+          border = 'rounded',
+          scrollbar = false,
+        },
+      },
     },
+    config = function(_, opts)
+      require('blink.cmp').setup(opts)
+    end,
   },
 
   { -- You can easily change to a different colorscheme.
@@ -950,7 +1020,23 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'c_sharp',
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'javascript',
+        'css',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'php',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
