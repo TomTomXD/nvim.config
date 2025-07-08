@@ -27,9 +27,9 @@ return {
     'kdheepak/lazygit.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
 
-    -- Opening of lazygit is mapped to '<leader>lg'
+    -- Opening of lazygit is mapped to '<leader>g'
     keys = {
-      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+      { '<leader>g', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
   },
 }

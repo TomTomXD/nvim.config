@@ -311,7 +311,7 @@ require('lazy').setup({
         -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
         -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
         keys = vim.g.have_nerd_font and {} or {
-          Up = '<Up>',
+          Up = '<Up> ',
           Down = '<Down> ',
           Left = '<Left> ',
           Right = '<Right> ',
@@ -347,6 +347,9 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>e', group = 'Neo-tree', icon = { icon = '󰙅' } },
+        { '<leader>d', group = 'Generate [D]ocumentation', icon = { icon = '' } },
+        { '<leader>g', group = 'Git', icon = { icon = '', color = 'orange' } },
       },
     },
   },
@@ -1109,6 +1112,6 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
-vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { desc = '󰙅 Neo-tree', noremap = true, silent = true })
+vim.keymap.set('n', '<leader>e', ':Neotree toggle<CR>', { desc = 'Neo-tree', noremap = true, silent = true })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
