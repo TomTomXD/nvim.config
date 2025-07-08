@@ -32,4 +32,31 @@ return {
       { '<leader>g', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
   },
+  -- Plugin for .NET/C# tests
+  {
+    'Issafalcon/neotest-dotnet',
+  },
+  -- Plugin for running tests
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/nvim-nio',
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'Issafalcon/neotest-dotnet',
+    },
+    config = function()
+      require('neotest').setup {
+        adapters = {
+          require 'neotest-dotnet' { discovery_root = 'solution' },
+        },
+      }
+      -- Map '<leader>tA' to run all tests
+      vim.keymap.set('n', '<leader>tA', function()
+        require('neotest').summary.open()
+        require('neotest').run.run(vim.loop.cwd())
+      end, { desc = 'Open summary and run all tests in workspace' })
+    end,
+  },
 }

@@ -345,7 +345,7 @@ require('lazy').setup({
       -- Document existing key chains
       spec = {
         { '<leader>s', group = '[S]earch' },
-        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t', group = '[T]ests', icon = { icon = '', color = 'green' } },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>e', group = 'Neo-tree', icon = { icon = '󰙅' } },
         { '<leader>d', group = 'Generate [D]ocumentation', icon = { icon = '' } },
