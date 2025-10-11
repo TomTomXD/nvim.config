@@ -166,6 +166,32 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Color column (guide) + toggle (window-local) + disable for texts
+vim.o.colorcolumn = '80'
+pcall(vim.api.nvim_set_hl, 0, 'ColorColumn', { bg = '#2f2f2f' })
+
+vim.keymap.set('n', '<leader>cc', function()
+  vim.o.colorcolumn = (vim.o.colorcolumn == '' and '80' or '')
+end, { desc = 'Toggle colorcolumn' })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'markdown', 'text', 'gitcommit' },
+  callback = function() vim.o.colorcolumn = '' end,
+})
+
+-- Trim trailing whitespace on save (except binary / specific filetypes)
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = vim.api.nvim_create_augroup('trim_whitespace_on_save', { clear = true }),
+  callback = function()
+    local ft = vim.bo.filetype
+    local skip = { 'diff', 'gitcommit', 'gitrebase' }
+    for _, v in ipairs(skip) do if v == ft then return end end
+    local view = vim.fn.winsaveview()
+    vim.cmd [[%s/\s\+$//e]]
+    vim.fn.winrestview(view)
+  end,
+})
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
