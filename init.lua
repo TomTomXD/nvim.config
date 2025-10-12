@@ -1131,6 +1131,12 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+}, {
+  -- For comments (gc/gcc)
+  'numToStr/Comment.nvim',
+  config = function()
+    require('Comment').setup()
+  end,
 })
 
 -- Indentation settings
