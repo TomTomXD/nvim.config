@@ -376,6 +376,7 @@ require('lazy').setup({
         { '<leader>e', group = 'Neo-tree', icon = { icon = '󰙅' } },
         { '<leader>d', group = 'Generate [D]ocumentation', icon = { icon = '' } },
         { '<leader>g', group = 'Git', icon = { icon = '', color = 'orange' } },
+        { '<leader>j', group = 'Java', icon = { icon = '', color = 'red' } },
       },
     },
   },
@@ -436,12 +437,25 @@ require('lazy').setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          layout_config = {
+            horizontal = {
+              prompt_position = 'bottom',
+              preview_width = 0.6,
+              results_width = 0.4,
+            },
+            width = 0.90,
+            height = 0.90,
+            preview_cutoff = 0,
+          },
+          border = true,
+          borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+        },
+        pickers = {
+          find_files = {
+            path_display = { 'tail' }, -- show only the last part of file path
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
