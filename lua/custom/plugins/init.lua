@@ -66,6 +66,32 @@ return {
       local jdtls = require('jdtls')
       local home = os.getenv('HOME') or os.getenv('USERPROFILE')
       local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+
+      -- Prefer blink.cmp capabilities if available so completion items include docs
+      local capabilities = nil
+      local ok, blink = pcall(require, 'blink.cmp')
+      if ok and blink and blink.get_lsp_capabilities then
+        capabilities = blink.get_lsp_capabilities()
+      else
+        capabilities = vim.lsp.protocol.make_client_capabilities()
+      end
+
+      local function on_attach(client, bufnr)
+        -- basic LSP keymaps for Java buffers
+        local function map(keys, fn, desc, mode)
+          mode = mode or 'n'
+          vim.keymap.set(mode, keys, fn, { buffer = bufnr, desc = 'LSP: ' .. desc })
+        end
+
+        map('K', vim.lsp.buf.hover, 'Hover')
+        map('grd', vim.lsp.buf.definition, 'Goto Definition')
+        map('grr', vim.lsp.buf.references, 'References')
+        map('grn', vim.lsp.buf.rename, 'Rename')
+        map('gra', vim.lsp.buf.code_action, 'Code Action')
+        -- signature help in insert mode
+        vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'LSP: Signature Help' })
+      end
+
       local config = {
         cmd = {
           'jdtls',

@@ -929,7 +929,8 @@ require('lazy').setup({
         menu = {
           enabled = true,
           draw = {
-            border = 'rounded',
+            -- 'border' is not a valid field for blink.cmp menu.draw in some versions
+            -- remove it to avoid the "Unexpected field in configuration" warning
             gap = 1,
             padding = 1,
             treesitter = { 'lsp' },
